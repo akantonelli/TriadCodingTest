@@ -32,3 +32,18 @@ def menu():
         screen.draw.text("Som: OFF", center=btnSom.center, color="white", fontsize=50)
 
 
+def on_mouse_down(pos):
+    global estado, som
+
+    if estado == "menu":
+        if btnJogar.collidepoint(pos):
+            estado = "jogo"
+
+
+        if btnSom.collidepoint(pos) and som == True:
+            som = False
+        elif btnSom.collidepoint(pos) and som == False:
+            som = True            
+        
+            
+
