@@ -21,11 +21,19 @@ enemies = [
     Actor("tr0", (200, 500))
 ]
 
-               
+#Obstaculos
+obstaculos = [
+    Actor("obstaclemap00"),
+    Actor("obstaclemap01"),
+    Actor("obstaclewall")
+]
+
 #estados iniciais do jogo
 estado = "menu"
 som = True
 
+
+#funções do jogo
 def draw():
     if estado == "menu":
         menu()
@@ -53,6 +61,9 @@ def jogo():
 
     for enemy in enemies:
         enemy.draw()
+
+    for obstaculo in obstaculos:
+        obstaculo.draw()
 
 
 def update():
