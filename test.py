@@ -11,7 +11,7 @@ btnJogar = Rect((275, 480), (350,70))
 btnSom = Rect((275, 580), (350,70))
 
 #Actors
-player = Actor("ct", (755, 840)) #principal personagem do jogo
+ct = Actor("ct", (755, 840)) #principal personagem do jogo
 
 enemies = [
     Actor("tr", (720, 200)),
@@ -49,10 +49,25 @@ def menu():
 def jogo():
     screen.blit("miragemap", (0, 0))
 
-    player.draw()
+    ct.draw()
 
     for enemy in enemies:
         enemy.draw()
+
+
+def update():
+    global estado
+
+    if estado == "jogo":
+        if keyboard.left:
+            ct.x -= 2
+        if keyboard.right:
+            ct.x += 2
+        if keyboard.up:
+            ct.y -= 2
+        if keyboard.down:
+            ct.y += 2
+
 
 def on_mouse_down(pos):
     global estado, som
