@@ -23,9 +23,9 @@ trs = [
 
 #Obstaculos
 obstaculos = [
-    Actor("obstaclemap00"),
-    Actor("obstaclemap01"),
-    Actor("obstaclewall")
+    Actor("obstacle00", (284, 476)),
+    Actor("obstacle01", (350, 194)),
+    #Actor("obstaclewall")
 ]
 
 #estados iniciais do jogo
@@ -68,15 +68,31 @@ def jogo():
 
 #Função para movimentar o personagem
 def moverCT():
-        
+       
     if keyboard.left:
-        ct.x -= 2         
+        ct.x -= 2
+        if colisaoObstaculo():
+            ct.x += 2      
     if keyboard.right:
         ct.x += 2
+        if colisaoObstaculo():
+            ct.x -= 2
     if keyboard.up:
         ct.y -= 2
+        if colisaoObstaculo():
+            ct.y += 2
     if keyboard.down:
         ct.y += 2
+        if colisaoObstaculo():
+            ct.y -= 2
+
+def colisaoObstaculo():
+    for obstaculo in obstaculos:
+        if ct.colliderect(obstaculo):
+            return True
+    return False
+
+
 
 def limiteTela():
     if ct.x < 0:
