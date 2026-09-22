@@ -11,20 +11,20 @@ btnJogar = Rect((275, 480), (350,70))
 btnSom = Rect((275, 580), (350,70))
 
 #Actors
-ct = Actor("ct", (755, 800)) #principal personagem do jogo
+ct = Actor("ct", (780, 820)) #principal personagem do jogo
 
 trs = [
-    Actor("tr", (720, 200)),
-    Actor("tr", (750, 440)),
-    Actor("tr", (400, 110)),
-    Actor("tr", (320, 250)),
+    Actor("tr", (720, 180)),
+    Actor("tr", (765, 440)),
+    Actor("tr", (400, 90)),
+    Actor("tr", (350, 250)),
     Actor("tr0", (200, 500))
 ]
 
 #Obstaculos
 obstaculos = [
     Actor("obstacle00", (284, 476)),
-    Actor("obstacle01", (350, 194)),
+    Actor("obstacle01", (415, 220)),
     #Actor("obstaclewall")
 ]
 
