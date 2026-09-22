@@ -11,9 +11,9 @@ btnJogar = Rect((275, 480), (350,70))
 btnSom = Rect((275, 580), (350,70))
 
 #Actors
-ct = Actor("ct", (755, 840)) #principal personagem do jogo
+ct = Actor("ct", (755, 800)) #principal personagem do jogo
 
-enemies = [
+trs = [
     Actor("tr", (720, 200)),
     Actor("tr", (750, 440)),
     Actor("tr", (400, 110)),
@@ -59,25 +59,42 @@ def jogo():
 
     ct.draw()
 
-    for enemy in enemies:
-        enemy.draw()
+    for tr in trs:
+        tr.draw()
 
     for obstaculo in obstaculos:
         obstaculo.draw()
+
+
+#Função para movimentar o personagem
+def moverCT():
+        
+    if keyboard.left:
+        ct.x -= 2         
+    if keyboard.right:
+        ct.x += 2
+    if keyboard.up:
+        ct.y -= 2
+    if keyboard.down:
+        ct.y += 2
+
+def limiteTela():
+    if ct.x < 0:
+        ct.x = 0
+    if ct.x > WIDTH:
+        ct.x = WIDTH
+    if ct.y < 0:
+        ct.y = 0
+    if ct.y > HEIGHT:
+        ct.y = HEIGHT
 
 
 def update():
     global estado
 
     if estado == "jogo":
-        if keyboard.left:
-            ct.x -= 2
-        if keyboard.right:
-            ct.x += 2
-        if keyboard.up:
-            ct.y -= 2
-        if keyboard.down:
-            ct.y += 2
+        moverCT()
+        limiteTela()
 
 
 def on_mouse_down(pos):
