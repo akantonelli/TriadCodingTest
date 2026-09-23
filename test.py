@@ -14,11 +14,11 @@ btnSom = Rect((275, 580), (350,70))
 ct = Actor("ct", (780, 820)) #principal personagem do jogo
 
 trs = [
-    Actor("tr", (720, 180)),
-    Actor("tr", (765, 440)),
-    Actor("tr", (400, 90)),
-    Actor("tr", (350, 250)),
-    Actor("tr0", (200, 500))
+    Actor("tr0", (200, 500)), #0
+    Actor("tr", (350, 250)), #1
+    Actor("tr", (400, 90)), #2
+    Actor("tr", (720, 180)), #3
+    Actor("tr", (765, 440)) #4
 ]
 
 #Obstaculos
@@ -86,6 +86,54 @@ def moverCT():
         if colisaoObstaculo():
             ct.y -= 2
 
+direcaoTR0 = "desce"
+direcaoTR2 = "direita"
+direcaoTR3 = "esquerda"
+direcaoTR4 = "esquerda"
+def moverTR():
+    global direcaoTR0, direcaoTR2, direcaoTR3, direcaoTR4
+
+    #0
+    if direcaoTR0 == "desce":
+        trs[0].y += 2
+        if trs[0].y >= 650:
+            direcaoTR0 = "sobe"
+    elif direcaoTR0 == "sobe":
+        trs[0].y -= 2
+        if trs[0].y <= 460:
+            direcaoTR0 = "desce"
+
+    #2
+    if direcaoTR2 == "direita":
+        trs[2].x += 1.8
+        if trs[2].x >= 530:
+            direcaoTR2 = "esquerda"
+    elif direcaoTR2 == "esquerda":
+        trs[2].x -= 2
+        if trs[2].x <= 430:
+            direcaoTR2 = "direita"
+
+    #3
+    if direcaoTR3 == "esquerda":
+        trs[3].x -= 1.5
+        if trs[3].x <= 620:
+            direcaoTR3 = "direita"
+    elif direcaoTR3 == "direita":
+        trs[3].x += 2.5
+        if trs[3].x >= 720:
+            direcaoTR3 = "esquerda"
+
+    #4
+    if direcaoTR4 == "esquerda":
+        trs[4].x -= 1.5
+        if trs[4].x <= 700:
+            direcaoTR4 = "direita"
+    elif direcaoTR4 == "direita":
+        trs[4].x += 1.5
+        if trs[4].x >= 765:
+            direcaoTR4 = "esquerda"
+
+    
 def colisaoObstaculo():
     for obstaculo in obstaculos:
         if ct.colliderect(obstaculo):
@@ -111,6 +159,7 @@ def update():
     if estado == "jogo":
         moverCT()
         limiteTela()
+        moverTR()
 
 
 def on_mouse_down(pos):
