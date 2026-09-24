@@ -22,6 +22,7 @@ trs = [
 ]
 
 shootsct = []
+shootstr = []
 
 #Obstaculos
 obstaculos = [
@@ -33,6 +34,7 @@ obstaculos = [
 #estados iniciais do jogo
 estado = "menu"
 som = True
+delay_shoottr = 50
 
 
 #funções do jogo
@@ -50,6 +52,7 @@ def update():
         limiteTela()
         moverTR()
         shootCT()
+        shootTR()
 
 
 def menu():
@@ -73,6 +76,9 @@ def jogo():
             shootct.draw()
 
     ct.draw()
+
+    for shoottr in shootstr:
+        shoottr.draw()
 
     for tr in trs:
         tr.draw()
@@ -151,6 +157,23 @@ def moverTR():
         if trs[4].x >= 765:
             direcaoTR4 = "esquerda"
 
+
+def shootCT():
+    if keyboard.space:
+        shootct = Actor("shootct", (ct.x, ct.y))
+        shootsct.append(shootct)
+
+def shootTR():
+    global delay_shoottr
+
+    if delay_shoottr == 50:
+        for tr in trs:
+            shoottr = Actor("shoottr", (tr.x, tr.y))
+            shootstr.append(shoottr)
+    elif delay_shoottr == 0:
+        delay_shoottr = 51
+
+    delay_shoottr -= 1
     
 def colisaoObstaculo():
     for obstaculo in obstaculos:
@@ -158,10 +181,6 @@ def colisaoObstaculo():
             return True
     return False
 
-def shootCT():
-    if keyboard.space:
-        shootct = Actor("shootct", (ct.x, ct.y))
-        shootsct.append(shootct)
 
 def limiteTela():
     if ct.x < 0:
