@@ -21,6 +21,8 @@ trs = [
     Actor("tr", (765, 440)) #4
 ]
 
+shootsct = []
+
 #Obstaculos
 obstaculos = [
     Actor("obstacle00", (284, 476)),
@@ -40,6 +42,16 @@ def draw():
     elif estado == "jogo":
         jogo()
 
+def update():
+    global estado
+
+    if estado == "jogo":
+        moverCT()
+        limiteTela()
+        moverTR()
+        shootCT()
+
+
 def menu():
     screen.blit("menubg", (0, 0))
 
@@ -57,6 +69,9 @@ def menu():
 def jogo():
     screen.blit("miragemap", (0, 0))
 
+    for shootct in shootsct:
+            shootct.draw()
+
     ct.draw()
 
     for tr in trs:
@@ -64,6 +79,8 @@ def jogo():
 
     for obstaculo in obstaculos:
         obstaculo.draw()
+
+    
 
 
 #Função para movimentar o personagem
@@ -85,6 +102,7 @@ def moverCT():
         ct.y += 2
         if colisaoObstaculo():
             ct.y -= 2
+
 
 direcaoTR0 = "desce"
 direcaoTR2 = "direita"
@@ -140,7 +158,10 @@ def colisaoObstaculo():
             return True
     return False
 
-
+def shootCT():
+    if keyboard.space:
+        shootct = Actor("shootct", (ct.x, ct.y))
+        shootsct.append(shootct)
 
 def limiteTela():
     if ct.x < 0:
@@ -151,15 +172,6 @@ def limiteTela():
         ct.y = 0
     if ct.y > HEIGHT:
         ct.y = HEIGHT
-
-
-def update():
-    global estado
-
-    if estado == "jogo":
-        moverCT()
-        limiteTela()
-        moverTR()
 
 
 def on_mouse_down(pos):
