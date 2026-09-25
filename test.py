@@ -167,8 +167,10 @@ def shootTR():
     global delay_shoottr
 
     if delay_shoottr == 50:
-        for tr in trs:
+        for i, tr in enumerate(trs):
             shoottr = Actor("shoottr", (tr.x, tr.y))
+            if i == 0:
+                shoottr.angle = 90
             shootstr.append(shoottr)
     elif delay_shoottr == 0:
         delay_shoottr = 51
