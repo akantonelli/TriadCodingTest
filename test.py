@@ -53,6 +53,8 @@ def update():
         moverTR()
         shootCT()
         shootTR()
+        movershootTR()
+        movershootCT()
 
 
 def menu():
@@ -163,6 +165,11 @@ def shootCT():
         shootct = Actor("shootct", (ct.x, ct.y))
         shootsct.append(shootct)
 
+def movershootCT():
+    for shootct in shootsct:
+        shootct.y -=10
+
+
 def shootTR():
     global delay_shoottr
 
@@ -171,11 +178,20 @@ def shootTR():
             shoottr = Actor("shoottr", (tr.x, tr.y))
             if i == 0:
                 shoottr.angle = 90
+
             shootstr.append(shoottr)
     elif delay_shoottr == 0:
         delay_shoottr = 51
 
     delay_shoottr -= 1
+
+def movershootTR():
+    for shoottr in shootstr:
+        if shoottr.angle == 90:
+            shoottr.x += 10
+        else:
+            shoottr.y +=10
+    
     
 def colisaoObstaculo():
     for obstaculo in obstaculos:
