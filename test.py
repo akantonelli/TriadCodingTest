@@ -61,6 +61,7 @@ def update():
         movershootTR()
         movershootCT()
         colisaoShootTrObstacle()
+        colisaoShootCtObstacle()
 
 
 def menu():
@@ -211,7 +212,11 @@ def colisaoShootTrObstacle():
             if shoottr.colliderect(obstaculo):
                 shootstr.remove(shoottr)
                 
-
+def colisaoShootCtObstacle():
+    for shootct in shootsct:
+        for obstaculo in obstaculos:
+            if shootct.colliderect(obstaculo):
+                shootsct.remove(shootct)
 
 def limiteTela():
     if ct.x < 0:
