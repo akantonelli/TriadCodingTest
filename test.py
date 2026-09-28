@@ -56,7 +56,6 @@ def update():
         moverCT()
         limiteTela()
         moverTR()
-        shootCT()
         shootTR()
         movershootTR()
         movershootCT()
@@ -167,10 +166,11 @@ def moverTR():
             direcaoTR4 = "esquerda"
 
 
-def shootCT():
-    if keyboard.space:
+def on_key_down(key):
+    if estado == "jogo" and key == keys.SPACE:
         shootct = Actor("shootct", (ct.x, ct.y))
         shootsct.append(shootct)
+    
 
 def movershootCT():
     for shootct in shootsct:
