@@ -28,7 +28,12 @@ shootstr = []
 obstaculos = [
     Actor("obstacle00", (284, 476)),
     Actor("obstacle01", (415, 220)),
-    #Actor("obstaclewall")
+    Actor("obstacle02", (791.5, 306.5)),
+    Actor("obstacle03", (855, 423)),
+    Actor("obstacle04", (813.5, 556.5)),
+    Actor("obstacle05", (866.5, 645)),
+    Actor("obstacle06", (370.5, 741.5)),
+    Actor("obstacle07", (336.5, 772.5))
 ]
 
 #estados iniciais do jogo
