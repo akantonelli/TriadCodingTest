@@ -183,6 +183,9 @@ def on_key_down(key):
     if estado == "jogo" and key == keys.SPACE:
         shootct = Actor("shootct", (ct.x, ct.y))
         shootsct.append(shootct)
+        if som == True:
+            sounds.m4a4.set_volume(0.1)
+            sounds.m4a4.play()
     
 
 def movershootCT():
