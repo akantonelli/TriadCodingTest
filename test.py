@@ -21,6 +21,9 @@ trs = [
     Actor("tr", (765, 440)) #4
 ]
 
+for tr in trs:
+        tr.estado = "vivo"
+
 shootsct = []
 shootstr = []
 
@@ -61,6 +64,7 @@ def update():
         movershootCT()
         colisaoShootTrObstacle()
         colisaoShootCtObstacle()
+        colisaoShootCtInTr()
 
 
 def menu():
@@ -89,7 +93,8 @@ def jogo():
         shoottr.draw()
 
     for tr in trs:
-        tr.draw()
+        if tr.estado == "vivo":
+            tr.draw()
 
     for obstaculo in obstaculos:
         obstaculo.draw()
@@ -182,11 +187,12 @@ def shootTR():
 
     if delay_shoottr == 50:
         for i, tr in enumerate(trs):
-            shoottr = Actor("shoottr", (tr.x, tr.y))
-            if i == 0:
-                shoottr.angle = 90
+            if tr.estado == "vivo":
+                shoottr = Actor("shoottr", (tr.x, tr.y))
+                if i == 0:
+                    shoottr.angle = 90
 
-            shootstr.append(shoottr)
+                shootstr.append(shoottr)
     elif delay_shoottr == 0:
         delay_shoottr = 51
 
@@ -216,6 +222,13 @@ def colisaoShootCtObstacle():
     for shootct in shootsct:
         for obstaculo in obstaculos:
             if shootct.colliderect(obstaculo):
+                shootsct.remove(shootct)
+
+def colisaoShootCtInTr():
+    for shootct in shootsct:
+        for tr in trs:
+            if tr.estado == "vivo" and shootct.colliderect(tr):
+                tr.estado = "morto"
                 shootsct.remove(shootct)
 
 def limiteTela():
