@@ -9,6 +9,7 @@ HEIGHT = 900
 #componentes do jogo
 btnJogar = Rect((275, 480), (350,70))
 btnSom = Rect((275, 580), (350,70))
+btnSomJogo = Rect((15, 855), (130,30))
 
 #Actors
 ct = Actor("ct", (780, 820)) #principal personagem do jogo
@@ -98,6 +99,13 @@ def jogo():
 
     for obstaculo in obstaculos:
         obstaculo.draw()
+
+    screen.draw.filled_rect(btnSomJogo, "black")
+    
+    if som:
+        screen.draw.text("Som: ON", center=btnSomJogo.center, color="white", fontsize=25)
+    else:
+        screen.draw.text("Som: OFF", center=btnSomJogo.center, color="white", fontsize=25)
 
     
 
@@ -254,6 +262,12 @@ def on_mouse_down(pos):
             som = False
         elif btnSom.collidepoint(pos) and som == False:
             som = True            
-        
+
+    if estado == "jogo":
+        if btnSomJogo.collidepoint(pos) and som == True:
+            som = False
+        elif btnSomJogo.collidepoint(pos) and som == False:
+            som = True 
+
             
 
