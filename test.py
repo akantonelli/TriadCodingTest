@@ -128,6 +128,33 @@ def win():
     screen.draw.text("Próximo Round", center=btnRestart.center, color="white", fontsize=50)
 
 
+
+def restartRound():
+    global delay_shoottr, direcaoTR0, direcaoTR2, direcaoTR3, direcaoTR4, kills
+
+    #Reinicia CT
+    ct.pos = (780, 820)
+
+    #Reinicia TRs
+    trs[0].pos = (200, 500)
+    trs[1].pos = (350, 250)
+    trs[2].pos = (400, 90)
+    trs[3].pos = (720, 180)
+    trs[4].pos = (765, 440)
+
+    #Todos voltam vivos
+    for tr in trs:
+        tr.estado = "vivo"
+
+    #Limpa tiros antigos
+    shootsct.clear()
+    shootstr.clear()
+
+    #Reinicia variaveis
+    kills = 4
+    delay_shoottr = 50
+
+
 #Função para movimentar o personagem
 def moverCT():
        
@@ -292,6 +319,7 @@ def on_mouse_down(pos):
 
     if estado == "win":
         if btnRestart.collidepoint(pos):
+            restartRound()
             estado = "jogo"
 
 
