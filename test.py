@@ -45,7 +45,6 @@ obstaculos = [
 estado = "menu"
 som = True
 delay_shoottr = 50
-kills = 0
 
 
 #funções do jogo
