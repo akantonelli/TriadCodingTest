@@ -10,6 +10,7 @@ HEIGHT = 900
 btnJogar = Rect((275, 480), (350,70))
 btnSom = Rect((275, 580), (350,70))
 btnSomJogo = Rect((15, 855), (130,30))
+btnRestart = Rect((275, 560), (350,70))
 
 #Actors
 ct = Actor("ct", (780, 820)) #principal personagem do jogo
@@ -44,6 +45,7 @@ obstaculos = [
 estado = "menu"
 som = True
 delay_shoottr = 50
+kills = 4
 
 
 #funções do jogo
@@ -52,6 +54,8 @@ def draw():
         menu()
     elif estado == "jogo":
         jogo()
+    elif estado == "win":
+        win()
 
 def update():
     global estado
@@ -83,6 +87,8 @@ def menu():
 
 
 def jogo():
+    global estado, kills
+
     screen.blit("miragemap", (0, 0))
 
     for shootct in shootsct:
@@ -93,9 +99,15 @@ def jogo():
     for shoottr in shootstr:
         shoottr.draw()
 
+    
     for tr in trs:
         if tr.estado == "vivo":
             tr.draw()
+        elif tr.estado == "morto":
+            kills += 1
+
+    if kills == 5:
+        estado = "win"
 
     for obstaculo in obstaculos:
         obstaculo.draw()
@@ -107,7 +119,13 @@ def jogo():
     else:
         screen.draw.text("Som: OFF", center=btnSomJogo.center, color="white", fontsize=25)
 
-    
+
+def win():
+    screen.blit("menubg", (0, 0))
+    screen.draw.text("Round Win", center = (450, 400), color="green", fontsize= 70)
+
+    screen.draw.filled_rect(btnRestart, "black")
+    screen.draw.text("Próximo Round", center=btnRestart.center, color="white", fontsize=50)
 
 
 #Função para movimentar o personagem
@@ -271,6 +289,11 @@ def on_mouse_down(pos):
             som = False
         elif btnSomJogo.collidepoint(pos) and som == False:
             som = True 
+
+    if estado == "win":
+        if btnRestart.collidepoint(pos):
+            estado = "jogo"
+
 
             
 
