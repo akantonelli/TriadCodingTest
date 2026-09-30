@@ -45,7 +45,7 @@ obstaculos = [
 estado = "menu"
 som = True
 delay_shoottr = 50
-kills = 4
+kills = 0
 
 
 #funções do jogo
@@ -70,6 +70,9 @@ def update():
         colisaoShootTrObstacle()
         colisaoShootCtObstacle()
         colisaoShootCtInTr()
+
+        if validaVitoria():
+            estado = "win"
 
 
 def menu():
@@ -103,11 +106,6 @@ def jogo():
     for tr in trs:
         if tr.estado == "vivo":
             tr.draw()
-        elif tr.estado == "morto":
-            kills += 1
-
-    if kills == 5:
-        estado = "win"
 
     for obstaculo in obstaculos:
         obstaculo.draw()
@@ -127,6 +125,17 @@ def win():
     screen.draw.filled_rect(btnRestart, "black")
     screen.draw.text("Próximo Round", center=btnRestart.center, color="white", fontsize=50)
 
+def validaVitoria():
+    kills = 0
+
+    for tr in trs:
+        if tr.estado == "morto":
+            kills +=1
+
+    if kills == 5:
+        return True
+
+    return False
 
 
 def restartRound():
@@ -151,7 +160,7 @@ def restartRound():
     shootstr.clear()
 
     #Reinicia variaveis
-    kills = 4
+    kills = 0
     delay_shoottr = 50
 
 
