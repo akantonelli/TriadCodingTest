@@ -1,5 +1,5 @@
 import os
-import pygame
+
 
 os.environ["SDL_VIDEO_CENTERED"] = "1"
 
