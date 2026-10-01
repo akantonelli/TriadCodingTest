@@ -11,6 +11,8 @@ btnJogar = Rect((275, 480), (350,70))
 btnSom = Rect((275, 580), (350,70))
 btnSomJogo = Rect((15, 855), (130,30))
 btnRestart = Rect((275, 560), (350,70))
+placarCT = Rect((15, 15), (60,60))
+placarTR = Rect((80, 15), (60,60))
 
 #Actors
 ct = Actor("ct", (780, 820)) #principal personagem do jogo
@@ -46,6 +48,8 @@ estado = "menu"
 som = True
 delay_shoottr = 50
 lifeCt = 100
+valorPlacarCT = 0
+valorPlacarTR = 0
 
 
 #funções do jogo
@@ -125,6 +129,11 @@ def jogo():
 
     screen.draw.text("Vida: "+ str(lifeCt), (720, 855),color="blue", fontsize=50)
 
+    screen.draw.filled_rect(placarCT, "black")
+    screen.draw.text(str(valorPlacarCT), center=placarCT.center,color="blue", fontsize=50)
+    screen.draw.filled_rect(placarTR, "black")
+    screen.draw.text(str(valorPlacarTR), center=placarTR.center,color="orange", fontsize=50)
+
 
 def win():
     screen.blit("menubg", (0, 0))
@@ -147,27 +156,32 @@ def defeat():
 
 def validaWin():
     kills = 0
+    global valorPlacarCT
 
     for tr in trs:
         if tr.estado == "morto":
             kills +=1
 
     if kills == 5:
+        valorPlacarCT += 1
         return True
+        
 
     return False
 
 def validaDefeat():
-    global lifeCt
+    global lifeCt, valorPlacarTR
 
     if lifeCt <= 0:
+        valorPlacarTR += 1
         return True
+        
 
     return False
 
 
 def restartRound():
-    global delay_shoottr, direcaoTR0, direcaoTR2, direcaoTR3, direcaoTR4, kills, lifeCt
+    global delay_shoottr, direcaoTR0, direcaoTR2, direcaoTR3, direcaoTR4, kills, lifeCt, valorPlacarCT, valorPlacarTR
 
     #Reinicia CT
     ct.pos = (780, 820)
@@ -191,6 +205,10 @@ def restartRound():
     kills = 0
     delay_shoottr = 50
     lifeCt = 100
+
+    if valorPlacarCT >=5 or valorPlacarTR >=5:
+        valorPlacarCT = 0
+        valorPlacarTR = 0
 
 
 #Função para movimentar o personagem
