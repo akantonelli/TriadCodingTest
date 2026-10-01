@@ -56,6 +56,8 @@ def draw():
         jogo()
     elif estado == "win":
         win()
+    elif estado == "defeat":
+        defeat()
 
 def update():
     global estado
@@ -72,8 +74,11 @@ def update():
         colisaoShootCtInTr()
         colisaoShootTrinCt()
 
-        if validaVitoria():
+        if validaWin():
             estado = "win"
+
+        if validaDefeat():
+            estado = "defeat"
 
 
 def menu():
@@ -126,9 +131,21 @@ def win():
     screen.draw.text("Round Win", center = (450, 400), color="green", fontsize= 70)
 
     screen.draw.filled_rect(btnRestart, "black")
-    screen.draw.text("Próximo Round", center=btnRestart.center, color="white", fontsize=50)
+    screen.draw.text("Proximo Round", center=btnRestart.center, color="white", fontsize=50)
 
-def validaVitoria():
+
+def defeat():
+    screen.blit("menubg", (0, 0))
+    screen.draw.text("Round Defeat", center = (450, 400), color="red", fontsize= 70)
+    
+    screen.draw.filled_rect(btnRestart, "black")
+    screen.draw.text("Proximo Round", center=btnRestart.center, color="white", fontsize=50)
+
+
+
+
+
+def validaWin():
     kills = 0
 
     for tr in trs:
@@ -140,9 +157,17 @@ def validaVitoria():
 
     return False
 
+def validaDefeat():
+    global lifeCt
+
+    if lifeCt <= 0:
+        return True
+
+    return False
+
 
 def restartRound():
-    global delay_shoottr, direcaoTR0, direcaoTR2, direcaoTR3, direcaoTR4, kills
+    global delay_shoottr, direcaoTR0, direcaoTR2, direcaoTR3, direcaoTR4, kills, lifeCt
 
     #Reinicia CT
     ct.pos = (780, 820)
@@ -165,6 +190,7 @@ def restartRound():
     #Reinicia variaveis
     kills = 0
     delay_shoottr = 50
+    lifeCt = 100
 
 
 #Função para movimentar o personagem
@@ -337,7 +363,7 @@ def on_mouse_down(pos):
         elif btnSomJogo.collidepoint(pos) and som == False:
             som = True 
 
-    if estado == "win":
+    if estado == "win" or estado == "defeat":
         if btnRestart.collidepoint(pos):
             restartRound()
             estado = "jogo"
