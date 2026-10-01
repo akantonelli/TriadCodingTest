@@ -45,6 +45,7 @@ obstaculos = [
 estado = "menu"
 som = True
 delay_shoottr = 50
+lifeCt = 100
 
 
 #funções do jogo
@@ -69,6 +70,7 @@ def update():
         colisaoShootTrObstacle()
         colisaoShootCtObstacle()
         colisaoShootCtInTr()
+        colisaoShootTrinCt()
 
         if validaVitoria():
             estado = "win"
@@ -115,6 +117,8 @@ def jogo():
         screen.draw.text("Som: ON", center=btnSomJogo.center, color="white", fontsize=25)
     else:
         screen.draw.text("Som: OFF", center=btnSomJogo.center, color="white", fontsize=25)
+
+    screen.draw.text("Vida: "+ str(lifeCt), (720, 855),color="blue", fontsize=50)
 
 
 def win():
@@ -294,6 +298,14 @@ def colisaoShootCtInTr():
             if tr.estado == "vivo" and shootct.colliderect(tr):
                 tr.estado = "morto"
                 shootsct.remove(shootct)
+
+def colisaoShootTrinCt():
+    global lifeCt
+
+    for shoottr in shootstr:
+        if shoottr.colliderect(ct):
+            shootstr.remove(shoottr)
+            lifeCt -= 20
 
 def limiteTela():
     if ct.x < 0:
